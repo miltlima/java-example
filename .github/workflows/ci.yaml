@@ -19,6 +19,12 @@ jobs:
         java-version: 11
         distribution: oracle
 
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: oracle
+        java-version: '17'
+
     - name: Install PMD
       run: |
         wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.38.0/pmd-bin-6.38.0.zip
@@ -27,7 +33,7 @@ jobs:
 
     - name: Run PMD Analysis
       run: |
-        pmd -d src/ -R java-design.xml -f xml -r pmd-report.xml
+        pmd -d src/ -R rulesets/java/ruleset.xml -f xml -r pmd-report.xml
 
     - name: Parse PMD Report
       run: pmd-cpd-parse -r pmd-report.xml -f plain -d ', ' -e 10 -n 20 > pmd-violations.txt
