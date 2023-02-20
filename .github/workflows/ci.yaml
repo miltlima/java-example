@@ -21,12 +21,12 @@ jobs:
 
     - name: Install PMD
       run: |
-        wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.38.0/pmd-bin-6.38.0.zip
-        unzip pmd-bin-6.38.0.zip
-        export PATH=$PATH:$PWD/pmd-bin-6.38.0/bin
+        wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.54.0/pmd-bin-6.54.0.zip
+        unzip pmd-bin-6.54.0.zip
+        export PATH=$PATH:$PWD/pmd-bin-6.54.0/bin
 
     - name: Run PMD Analysis
-      run: pmd -d src/ -R ruleses/java/ruleset.xml -f xml -r pmd-report.xml
+      run: run.sh pmd -d src/ -R ruleses/java/ruleset.xml -f xml -r pmd-report.xml
 
     - name: Upload PMD analysis report
       uses: actions/upload-artifact@v2
