@@ -48,31 +48,3 @@ jobs:
         else
           echo "No PMD violations found"
         fi
-
-    - name: Use ChatGPT to suggest improvements
-      if: always()
-      uses: OpenAI/gpt@v1
-      id: chatgpt
-      with:
-        prompt: |
-          Please suggest improvements for the following code:
-          ```
-          $(cat src/Main.java)
-          ```
-        token: ${{ secrets.OPENAI_API_KEY }}
-        temperature: 0.5
-        max-tokens: 1024
-        n: 1
-
-    - name: Post ChatGPT suggestion as a comment
-      if: always()
-      uses: actions/github-script@v4
-      with:
-        script: |
-          github.issues.createComment({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: context.issue.number,
-            body: 'Here is a suggestion from ChatGPT: ' + '${{ steps.chatgpt.outputs.result }}'
-          })
-        token: ${{ secrets.GITHUB_TOKEN }}
