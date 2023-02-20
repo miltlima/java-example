@@ -26,11 +26,6 @@ jobs:
         sourcePath: 'src/main/java'
         rulesets: 'rulesets/java/quickstart.xml,ruleset.xml'
 
-    - name: Upload SARIF file
-      uses: github/codeql-action/upload-sarif@v2
-      with:
-        sarif_file: pmd-report.sarif
-
     - name: Parse PMD Report
       run: pmd-cpd-parse -r pmd-report.xml -f plain -d ', ' -e 10 -n 20 > pmd-violations.txt
 
