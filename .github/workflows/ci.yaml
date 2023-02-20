@@ -19,13 +19,8 @@ jobs:
         distribution: oracle
         java-version: '17'
 
-    - name: Install PMD
-      run: |
-        wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.38.0/pmd-bin-6.38.0.zip
-        unzip pmd-bin-6.38.0.zip
-        export PATH=$PATH:$PWD/pmd-bin-6.38.0/bin
-
-    - name: Run PMD Analysis
+    - name: PMD Code Analyzer Action
+      uses: billyan2018/setup-pmd@PMDAnalyzer1.0
       run: |
         pmd -d src/ -R rulesets/java/ruleset.xml -f xml -r pmd-report.xml
 
